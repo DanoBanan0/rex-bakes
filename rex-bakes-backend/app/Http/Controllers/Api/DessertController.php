@@ -22,6 +22,9 @@ class DessertController extends Controller
      */
     public function store(Request $request)
     {
+        if (auth('api')->user()->role !== 'admin') {
+            return response()->json(['message' => 'Acceso denegado. Solo administradores.'], 403);
+        }
         $request->validate([
             'name' => 'required|string|max:255',
             'description' => 'nullable|string',
@@ -77,6 +80,9 @@ class DessertController extends Controller
      */
     public function update(Request $request, string $id)
     {
+        if (auth('api')->user()->role !== 'admin') {
+            return response()->json(['message' => 'Acceso denegado. Solo administradores.'], 403);
+        }
         $dessert = Dessert::find($id);
 
         if (!$dessert) {
@@ -120,6 +126,9 @@ class DessertController extends Controller
      */
     public function destroy(string $id)
     {
+        if (auth('api')->user()->role !== 'admin') {
+            return response()->json(['message' => 'Acceso denegado. Solo administradores.'], 403);
+        }
         $dessert = Dessert::find($id);
 
         if (!$dessert) {

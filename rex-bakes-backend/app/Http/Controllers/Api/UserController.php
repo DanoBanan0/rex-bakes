@@ -14,7 +14,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        if (auth()->user()->role !== 'admin') {
+        if (auth('api')->user()->role !== 'admin') {
             return response()->json(['message' => 'Acceso denegado. Solo administradores.'], 403);
         }
         $users = User::all();
@@ -64,7 +64,7 @@ class UserController extends Controller
             ], 404);
         }
 
-        if (auth()->user()->role !== 'admin' && auth()->user()->id != $id) {
+        if (auth('api')->user()->role !== 'admin' && auth('api')->user()->id != $id) {
             return response()->json(['message' => 'Acceso denegado.'], 403);
         }
 
@@ -88,7 +88,7 @@ class UserController extends Controller
             ], 404);
         }
 
-        if (auth()->user()->role !== 'admin' && auth()->user()->id != $id) {
+        if (auth('api')->user()->role !== 'admin' && auth('api')->user()->id != $id) {
             return response()->json(['message' => 'Acceso denegado.'], 403);
         }
 
@@ -109,6 +109,9 @@ class UserController extends Controller
         }
         // Si quisieras actualizar el rol:
         if ($request->has('role')) {
+            if ($user->id === auth('api')->user()->id && $request->role !== 'admin') {
+                return response()->json(['message' => 'No puedes cambiar tu propio rol a cliente.'], 403);
+            }
             $user->role = $request->role;
         }
 
@@ -126,10 +129,10 @@ class UserController extends Controller
      */
     public function destroy(string $id)
     {
-        if (auth()->user()->id == $id) {
-             return response()->json(['message' => 'No puedes eliminar tu propia cuenta de admin'], 400);
+        if (auth('api')->user()->id == $id) {
+            return response()->json(['message' => 'No puedes eliminar tu propia cuenta de admin'], 400);
         }
-        if (auth()->user()->role !== 'admin') {
+        if (auth('api')->user()->role !== 'admin') {
             return response()->json(['message' => 'Acceso denegado. Solo administradores.'], 403);
         }
         $user = User::find($id);
