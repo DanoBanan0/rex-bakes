@@ -1,0 +1,15 @@
+@import "tailwindcss";
+
+:root {
+  font-family: system-ui, -apple-system, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+  background-color: #f9fafb; /* Un gris muy suave, casi blanco */
+  color: #1f2937; /* Texto gris oscuro, más suave que el negro puro */
+}
