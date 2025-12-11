@@ -1,64 +1,69 @@
 import { useDesserts } from '../hooks/useDesserts';
 import { useCart } from '../context/CartContext';
-import Hero from '../components/Hero'; // <--- 1. Importar Hero
+import Hero from '../components/Hero';
 
 export default function Home() {
   const { desserts, loading, error } = useDesserts();
   const { addToCart } = useCart();
 
-  if (loading) return <div className="text-center p-10">Cargando delicias... 🍩</div>;
+  if (loading) return <div className="min-h-screen flex items-center justify-center text-pistachio-dark font-bold animate-pulse">Cargando dulzura...</div>;
   if (error) return <div className="text-center p-10 text-red-500">{error}</div>;
 
   return (
-    <div>
-      {/* 2. Poner el Hero aquí arriba */}
+    <div className="bg-white">
       <Hero />
 
-      <div className="max-w-7xl mx-auto px-4 py-12">
-        {/* 3. Agregar el ID para que el botón baje hasta aquí */}
-        <h1 id="menu-section" className="text-4xl font-bold text-gray-800 mb-10 text-center">
-          Nuestro Menú 🧁
-        </h1>
+      <div className="max-w-7xl mx-auto px-6 py-24">
+        {/* Título de Sección Elegante */}
+        <h2 id="menu-section" className="font-serif text-4xl font-bold text-center text-elegant-dark mb-16">
+          Nuestro Menú
+        </h2>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
-          {/* ... (El resto del código del mapa de postres sigue IGUAL) ... */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
           {desserts.map((dessert) => (
-            /* ... código de las tarjetas ... */
-            // (No borres el código de las tarjetas que ya tenías, solo copia la parte de arriba)
-            <div key={dessert.id} className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-shadow duration-300 border border-gray-100 flex flex-col h-full">
-              {/* ... contenido de la tarjeta ... */}
-              {/* (Asegúrate de mantener tu código de tarjetas aquí) */}
-              <div className="h-48 w-full bg-gray-200 relative">
+            // TARJETA ELEGANTE: Fondo blanco, sombra suave, muy redondeada
+            <div key={dessert.id} className="group bg-white p-4 rounded-[32px] shadow-soft hover:shadow-lg transition-all duration-300">
+
+              {/* Imagen: Fondo gris claro si no hay imagen, super redondeada */}
+              <div className="relative h-64 bg-gray-100 rounded-[24px] overflow-hidden mb-6">
                 {dessert.image_url ? (
-                  <img src={dessert.image_url} alt={dessert.name} className="w-full h-full object-cover" />
+                  <img src={dessert.image_url} alt={dessert.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
                 ) : (
-                  <div className="flex items-center justify-center h-full text-gray-400">Sin imagen</div>
+                  <div className="flex items-center justify-center h-full text-gray-300">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-12 h-12">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="m2.25 15.75 5.159-5.159a2.25 2.25 0 0 1 3.182 0l5.159 5.159m-1.5-1.5 1.409-1.409a2.25 2.25 0 0 1 3.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 0 0 1.5-1.5V6a1.5 1.5 0 0 0-1.5-1.5H3.75A1.5 1.5 0 0 0 2.25 6v12a1.5 1.5 0 0 0 1.5 1.5Zm10.5-11.25h.008v.008h-.008V8.25Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z" />
+                    </svg>
+                  </div>
                 )}
-                {dessert.stock < 5 && dessert.stock > 0 && (
-                  <span className="absolute top-2 right-2 bg-orange-500 text-white text-xs px-2 py-1 rounded-full shadow">¡Quedan pocos!</span>
-                )}
+
+                {/* Botón de carrito flotante (como en la referencia) */}
+                <button
+                  onClick={() => dessert.stock > 0 ? addToCart(dessert) : null}
+                  disabled={dessert.stock === 0}
+                  className={`absolute bottom-4 right-4 w-12 h-12 rounded-full flex items-center justify-center shadow-md transition-transform hover:scale-110 active:scale-95 ${dessert.stock > 0 ? 'bg-white text-elegant-dark hover:bg-pistachio' : 'bg-gray-200 text-gray-400'
+                    }`}
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 0 0-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 0 0-16.536-1.84M7.5 14.25 5.106 5.272M6 20.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Zm12.75 0a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z" />
+                  </svg>
+                </button>
               </div>
-              <div className="p-4 flex-1 flex flex-col">
-                <h2 className="text-xl font-semibold text-gray-800 mb-2">{dessert.name}</h2>
-                <p className="text-gray-600 text-sm mb-4 line-clamp-2 flex-1">{dessert.description || "Sin descripción."}</p>
-                <div className="flex justify-between items-center mt-4 pt-4 border-t border-gray-100">
-                  <span className="text-pink-600 font-bold text-lg">${Number(dessert.price).toFixed(2)}</span>
-                  <button
-                    onClick={() => {
-                      if (dessert.stock > 0) {
-                        addToCart(dessert);
-                        alert(`¡${dessert.name} agregado al carrito!`);
-                      } else {
-                        alert("Agotado");
-                      }
-                    }}
-                    disabled={dessert.stock === 0}
-                    className={`px-3 py-1.5 rounded-full text-sm font-medium transition-colors ${dessert.stock > 0 ? 'bg-pink-600 hover:bg-pink-700 text-white' : 'bg-gray-300 text-gray-500 cursor-not-allowed'}`}
-                  >
-                    {dessert.stock > 0 ? '+ Agregar' : 'Agotado'}
-                  </button>
+
+              {/* Info minimalista */}
+              <div className="flex justify-between items-start mb-2">
+                <div>
+                  <h3 className="font-serif text-xl font-bold text-elegant-dark">{dessert.name}</h3>
+                  <p className="text-sm text-elegant mt-1 line-clamp-2 h-10">{dessert.description}</p>
+                </div>
+                <div className="text-lg font-bold text-pistachio-dark">
+                  ${Number(dessert.price).toFixed(2)}
                 </div>
               </div>
+
+              {dessert.stock === 0 && (
+                <p className="text-red-400 text-xs font-bold mt-2 uppercase tracking-wider">Agotado</p>
+              )}
+
             </div>
           ))}
         </div>

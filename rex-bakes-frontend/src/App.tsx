@@ -8,12 +8,14 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import Cart from './pages/Cart';
 import AdminDashboard from './pages/Dashboard';
+import CartSidebar from './components/CartSidebar';
 
 function App() {
   return (
     <BrowserRouter>
       {/* Navbar arriba */}
       <Navbar />
+      <CartSidebar />
 
       {/* Contenedor principal que empuja el footer hacia abajo */}
       <div className="min-h-screen flex flex-col">

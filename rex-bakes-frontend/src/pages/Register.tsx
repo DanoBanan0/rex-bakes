@@ -20,8 +20,6 @@ export default function Register() {
 
         try {
             await register(formData);
-            // Si el registro es exitoso, el AuthContext auto-inicia sesión
-            // así que redirigimos directo al menú
             navigate('/');
         } catch (err) {
             setError('Error al registrarse. El correo podría estar en uso.');
@@ -30,29 +28,32 @@ export default function Register() {
     };
 
     return (
-        <div className="flex items-center justify-center min-h-[80vh]">
-            <div className="w-full max-w-md bg-white p-8 rounded-lg shadow-md border border-gray-100">
+        <div className="flex items-center justify-center min-h-[80vh] bg-white">
+            <div className="w-full max-w-md p-10">
 
-                <h2 className="text-2xl font-bold text-center text-green-600 mb-6">
-                    Crear Cuenta
-                </h2>
+                <div className="text-center mb-10">
+                    <h2 className="font-serif text-4xl font-bold text-elegant-black mb-2">
+                        Crear Cuenta
+                    </h2>
+                    <p className="text-gray-400 text-sm">Únete a nuestra comunidad dulce</p>
+                </div>
 
                 {error && (
-                    <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4 text-sm">
+                    <div className="bg-red-50 border border-red-100 text-red-500 px-4 py-3 rounded-lg mb-6 text-sm text-center">
                         {error}
                     </div>
                 )}
 
-                <form onSubmit={handleSubmit} className="space-y-4">
+                <form onSubmit={handleSubmit} className="space-y-5">
 
                     {/* Nombre */}
                     <div>
-                        <label className="block text-gray-700 text-sm font-bold mb-2">
+                        <label className="block text-elegant-black text-xs font-bold uppercase tracking-wider mb-2 ml-1">
                             Nombre Completo
                         </label>
                         <input
                             type="text"
-                            className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-green-500"
+                            className="w-full px-4 py-3 bg-gray-50 border border-gray-100 rounded-xl focus:outline-none focus:bg-white focus:border-pistachio focus:ring-1 focus:ring-pistachio transition-all"
                             placeholder="Ej. Juan Pérez"
                             value={formData.name}
                             onChange={(e) => setFormData({ ...formData, name: e.target.value })}
@@ -62,61 +63,64 @@ export default function Register() {
 
                     {/* Email */}
                     <div>
-                        <label className="block text-gray-700 text-sm font-bold mb-2">
+                        <label className="block text-elegant-black text-xs font-bold uppercase tracking-wider mb-2 ml-1">
                             Correo Electrónico
                         </label>
                         <input
                             type="email"
-                            className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-green-500"
+                            className="w-full px-4 py-3 bg-gray-50 border border-gray-100 rounded-xl focus:outline-none focus:bg-white focus:border-pistachio focus:ring-1 focus:ring-pistachio transition-all"
                             placeholder="juan@email.com"
                             value={formData.email}
                             onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                             required
                         />
                     </div>
-                    {/* Password */}
-                    <div>
-                        <label className="block text-gray-700 text-sm font-bold mb-2">
-                            Contraseña
-                        </label>
-                        <input
-                            type="password"
-                            className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-green-500"
-                            placeholder="******"
-                            value={formData.password}
-                            onChange={(e) => setFormData({ ...formData, password: e.target.value })}
-                            required
-                            minLength={6}
-                        />
-                    </div>
 
-                    {/* Password Confirmation */}
-                    <div>
-                        <label className="block text-gray-700 text-sm font-bold mb-2">
-                            Confirmar Contraseña
-                        </label>
-                        <input
-                            type="password"
-                            className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-green-500"
-                            placeholder="******"
-                            value={formData.password_confirmation}
-                            onChange={(e) => setFormData({ ...formData, password_confirmation: e.target.value })}
-                            required
-                            minLength={6}
-                        />
+                    {/* Password */}
+                    <div className="grid grid-cols-2 gap-4">
+                        <div>
+                            <label className="block text-elegant-black text-xs font-bold uppercase tracking-wider mb-2 ml-1">
+                                Contraseña
+                            </label>
+                            <input
+                                type="password"
+                                className="w-full px-4 py-3 bg-gray-50 border border-gray-100 rounded-xl focus:outline-none focus:bg-white focus:border-pistachio focus:ring-1 focus:ring-pistachio transition-all"
+                                placeholder="******"
+                                value={formData.password}
+                                onChange={(e) => setFormData({ ...formData, password: e.target.value })}
+                                required
+                                minLength={6}
+                            />
+                        </div>
+
+                        {/* Password Confirmation */}
+                        <div>
+                            <label className="block text-elegant-black text-xs font-bold uppercase tracking-wider mb-2 ml-1">
+                                Confirmar
+                            </label>
+                            <input
+                                type="password"
+                                className="w-full px-4 py-3 bg-gray-50 border border-gray-100 rounded-xl focus:outline-none focus:bg-white focus:border-pistachio focus:ring-1 focus:ring-pistachio transition-all"
+                                placeholder="******"
+                                value={formData.password_confirmation}
+                                onChange={(e) => setFormData({ ...formData, password_confirmation: e.target.value })}
+                                required
+                                minLength={6}
+                            />
+                        </div>
                     </div>
 
                     <button
                         type="submit"
-                        className="w-full bg-green-600 text-white font-bold py-2 px-4 rounded hover:bg-green-700 transition duration-300"
+                        className="w-full bg-elegant-black text-white font-bold py-4 rounded-xl hover:bg-gray-800 transition duration-300 shadow-lg transform active:scale-95 mt-4"
                     >
                         Registrarse
                     </button>
                 </form>
 
-                <p className="mt-4 text-center text-sm text-gray-600">
+                <p className="mt-8 text-center text-sm text-gray-500">
                     ¿Ya tienes cuenta?{' '}
-                    <Link to="/login" className="text-green-600 hover:underline font-bold">
+                    <Link to="/login" className="text-pistachio-dark font-bold hover:text-elegant-black hover:underline transition">
                         Ingresa aquí
                     </Link>
                 </p>

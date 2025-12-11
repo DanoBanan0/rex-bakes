@@ -1,37 +1,61 @@
+import heroImage from '../assets/rexbakes.png';
+
 export default function Hero() {
     const scrollToMenu = () => {
-        const menuSection = document.getElementById('menu-section');
-        if (menuSection) {
-            menuSection.scrollIntoView({ behavior: 'smooth' });
-        }
+        document.getElementById('menu-section')?.scrollIntoView({ behavior: 'smooth' });
     };
 
     return (
-        <div className="relative bg-gray-900 h-[60vh] flex items-center justify-center overflow-hidden">
+        // Fondo blanco puro, altura ajustada, contenido centrado a la izquierda
+        <div className="relative py-20 md:py-32 bg-white overflow-hidden">
 
-            {/* Imagen de Fondo (Usamos una de stock de alta calidad de Unsplash) */}
-            <img
-                src="https://images.unsplash.com/photo-1559598467-f8b76c8155d0?q=80&w=2071&auto=format&fit=crop"
-                alt="Postres Deliciosos"
-                className="absolute w-full h-full object-cover opacity-50"
-            />
+            <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-center gap-12">
 
-            {/* Contenido (Texto) */}
-            <div className="relative z-10 text-center px-4 max-w-3xl mx-auto">
-                <h1 className="text-4xl md:text-6xl font-bold text-white mb-6 drop-shadow-lg">
-                    Dulces momentos en cada bocado 🍰
-                </h1>
-                <p className="text-xl text-gray-200 mb-8 font-light">
-                    Postres artesanales hechos con amor. Desde los clásicos brownies hasta cheesecakes que te harán suspirar.
-                </p>
-                <button
-                    onClick={scrollToMenu}
-                    className="bg-pink-600 hover:bg-pink-700 text-white text-lg font-bold py-3 px-8 rounded-full shadow-xl transition transform hover:scale-105"
-                >
-                    Ver Menú
-                </button>
+                {/* Texto del Hero */}
+                <div className="md:w-1/2 flex flex-col items-start z-10">
+                    <span className="inline-block px-3 py-1 mb-6 bg-pastel-pink text-elegant-dark text-xs font-bold uppercase tracking-wider rounded-full">
+                        Repostería Artesanal
+                    </span>
+
+                    {/* Título gigante y elegante */}
+                    <h1 className="font-serif text-5xl md:text-7xl font-bold mb-6 text-elegant-dark leading-tight">
+                        Dulces <br />
+                        Momentos, <br />
+                        Sabores <span className="text-pistachio-dark">Reales.</span>
+                    </h1>
+
+                    <p className="text-lg text-elegant mb-10 max-w-lg leading-relaxed">
+                        Una fusión minimalista de técnicas clásicas y sabores modernos. Descubre la armonía en cada bocado jurásico.
+                    </p>
+
+                    {/* Botones estilo "pill" (pastilla) */}
+                    <div className="flex gap-4">
+                        <button onClick={scrollToMenu} className="bg-transparent border-2 border-pistachio text-elegant-dark text-base font-bold py-3 px-8 rounded-full hover:bg-pistachio transition">
+                            Ver Delicias
+                        </button>
+                    </div>
+                </div>
+
+                {/* Imagen Decorativa (Placeholder estilo referencia) */}
+                <div className="md:w-1/2 relative h-full w-full flex justify-center">
+                    {/* Contenedor de la imagen:
+                    - Quitamos el 'bg-gray-100' fuerte y ponemos un 'bg-gray-50' muy suave o 'bg-transparent'.
+                    - Mantenemos la altura fija y las esquinas redondeadas.
+                 */}
+                    <div className="w-full h-[400px] md:h-[500px] rounded-[40px] shadow-soft relative overflow-hidden p-3">
+                        <img
+                            src={heroImage} // Tu imagen importada
+                            alt="Postre Hero"
+                            // CAMBIO CLAVE: 'object-cover' -> 'object-contain'
+                            // Esto hace que la imagen entera quepa dentro sin cortarse.
+                            className="w-full h-full object-contain hover:scale-105 transition duration-700"
+                        />
+                    </div>
+                    {/* Elemento decorativo detrás (opcional) */}
+                    <div className="absolute -z-10 top-10 -right-10 w-3/4 h-3/4 bg-pistachio/20 rounded-full blur-3xl"></div>
+                </div>
+
             </div>
-
         </div>
     );
 }

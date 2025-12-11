@@ -1,15 +1,27 @@
 @import "tailwindcss";
 
-:root {
-  font-family: system-ui, -apple-system, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
+@theme {
+  /* Fuentes */
+  --font-serif: "Playfair Display", serif;
+  --font-sans: "Quicksand", sans-serif;
+
+  /* Paleta Pistacho & Frambuesa */
+  --color-pistachio: #CDEAC0;       /* Verde suave */
+  --color-pistachio-dark: #8FB97F;  /* Verde textos */
+  
+  --color-raspberry: #FFC2D1;       /* Rosa suave */
+  --color-raspberry-btn: #FF8FA3;   /* Rosa botones */
+  
+  --color-elegant-black: #1A1A1A;   /* Negro Footer */
+  --color-elegant-dark: #1F2937;    /* Gris muy oscuro (Textos) */
+  --color-elegant-gray: #F9F9F9;    /* Fondo casi blanco */
 }
 
+/* Estilos base */
 body {
+  background-color: white;
+  color: var(--color-elegant-dark);
+  font-family: var(--font-sans);
   margin: 0;
-  min-width: 320px;
   min-height: 100vh;
-  background-color: #f9fafb; /* Un gris muy suave, casi blanco */
-  color: #1f2937; /* Texto gris oscuro, más suave que el negro puro */
 }
